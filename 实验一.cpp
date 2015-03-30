@@ -6,14 +6,20 @@ using namespace std;
 int begin_Y()				//to judge whether to play the game and test the input
 {
 	char begin;
-	int judge = 0;
 	cout<<"需要玩游戏吗(Y/N)？";
 	cin>>begin;
-	if(begin=='Y') return 1;
+	/*if(begin=='Y') return 1;
 		else if (begin=='N') return 0;
 			else {cout<<"你的输入不合法，请重新输入"<<endl;
 				begin_Y();
-			}
+			}*/
+	while (begin!='Y' && begin!='N'){
+		cout<<"你的输入不合法，请重新输入"<<endl;
+		cout<<"需要玩游戏吗(Y/N)？";
+		cin>>begin;
+	}
+	if(begin=='Y') return 1;
+		else return 0;
  } 
  
  int guessNum()
@@ -47,7 +53,7 @@ int begin_Y()				//to judge whether to play the game and test the input
  			else if (gus3==num1 or gus3==num2) ++num_B;
  		if (num_A==3) {
  			cout<<"恭喜，你猜对了"<<endl;
- 			return 0;
+ 			return 1;
 		 }
  			else cout<<num_A<<"A"<<num_B<<"B"<<endl;
  		i++;
@@ -58,11 +64,15 @@ int begin_Y()				//to judge whether to play the game and test the input
  
  int main()
  {
+ 	int sum_num=0, win_num=0;
  	while (1) {															//the program can be carried on infinite many times if user want
- 		int flag;
+ 		int flag, judge;
  		flag=begin_Y();
  		if (flag==0) break;												//if user dont want to continue then the program will exit
- 		guessNum();
+ 		judge = guessNum();
+ 		++sum_num;
+ 		if (judge==1) ++win_num;
  	}
+ 	cout<<"你一共玩了"<<sum_num<<"局，赢了"<<win_num<<"局，输了"<<sum_num-win_num<<"局。"<<endl; 
 	return 0;
  }
